@@ -358,6 +358,14 @@
         return;
       }
 
+      // Mark donation as complete and store amount
+      localStorage.setItem('hasDonated', 'true');
+      localStorage.setItem('donationAmount', selectedAmount);
+      localStorage.setItem('donorName', (document.getElementById('firstName').value || 'Anonymous'));
+
+      // Unlock the comment section
+      initCommentSection();
+
       // Show thank you modal
       var modal = document.getElementById('thankYouModal');
       var modalAmount = document.getElementById('modalAmount');
@@ -441,6 +449,123 @@
     });
   }
 
+  // --- Comment Section (Donation-Gated) ---
+  function initCommentSection() {
+    var gateLocked = document.getElementById('gateLocked');
+    var gateUnlocked = document.getElementById('gateUnlocked');
+    var commentAmountInput = document.getElementById('commentAmount');
+    var commentForm = document.getElementById('commentForm');
+    var commentsList = document.getElementById('commentsList');
+
+    if (!gateLocked || !gateUnlocked) return;
+
+    var hasDonated = localStorage.getItem('hasDonated') === 'true';
+
+    if (hasDonated) {
+      gateLocked.hidden = true;
+      gateUnlocked.hidden = false;
+
+      // Pre-fill donation amount
+      var amount = localStorage.getItem('donationAmount') || '75';
+      if (commentAmountInput) {
+        commentAmountInput.value = '$' + amount;
+      }
+
+      // Pre-fill name
+      var nameInput = document.getElementById('commentName');
+      var storedName = localStorage.getItem('donorName');
+      if (nameInput && storedName) {
+        nameInput.value = storedName;
+      }
+    } else {
+      gateLocked.hidden = false;
+      gateUnlocked.hidden = true;
+    }
+
+    // Load saved comments from localStorage
+    loadSavedComments();
+
+    // Handle comment form submission
+    if (commentForm) {
+      commentForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var nameInput = document.getElementById('commentName');
+        var textInput = document.getElementById('commentText');
+        var amountInput = document.getElementById('commentAmount');
+
+        if (!nameInput.value.trim() || !textInput.value.trim()) return;
+
+        var comment = {
+          name: nameInput.value.trim(),
+          text: textInput.value.trim(),
+          amount: amountInput.value || '$75',
+          date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+          id: Date.now()
+        };
+
+        // Save to localStorage
+        var savedComments = JSON.parse(localStorage.getItem('userComments') || '[]');
+        savedComments.unshift(comment);
+        localStorage.setItem('userComments', JSON.stringify(savedComments));
+
+        // Add to DOM
+        addCommentToDOM(comment, true);
+
+        // Reset form
+        textInput.value = '';
+      });
+    }
+  }
+
+  function loadSavedComments() {
+    var savedComments = JSON.parse(localStorage.getItem('userComments') || '[]');
+    savedComments.forEach(function (comment) {
+      addCommentToDOM(comment, false);
+    });
+  }
+
+  function addCommentToDOM(comment, animate) {
+    var commentsList = document.getElementById('commentsList');
+    if (!commentsList) return;
+
+    var colors = [
+      'linear-gradient(135deg, #c9956b, #8b5e3c)',
+      'linear-gradient(135deg, #2c6e8a, #1a3a5c)',
+      'linear-gradient(135deg, #8fa587, #4a6741)',
+      'linear-gradient(135deg, #b8734a, #8b5e3c)',
+      'linear-gradient(135deg, #5b7fa5, #2c4a6e)'
+    ];
+    var randomColor = colors[Math.floor(Math.random() * colors.length)];
+    var initial = comment.name.charAt(0).toUpperCase();
+
+    var card = document.createElement('div');
+    card.className = 'comment-card' + (animate ? ' new-comment' : '');
+    card.innerHTML =
+      '<div class="comment-avatar" style="background: ' + randomColor + ';">' + initial + '</div>' +
+      '<div class="comment-body">' +
+        '<div class="comment-header">' +
+          '<strong>' + escapeHTML(comment.name) + '</strong>' +
+          '<span class="comment-date">' + escapeHTML(comment.date) + '</span>' +
+          '<span class="comment-badge">Donated ' + escapeHTML(comment.amount) + '</span>' +
+        '</div>' +
+        '<p>' + escapeHTML(comment.text) + '</p>' +
+      '</div>';
+
+    // Insert at the top of the comments list (after existing seeded comments if first load)
+    if (animate) {
+      commentsList.insertBefore(card, commentsList.firstChild);
+    } else {
+      commentsList.insertBefore(card, commentsList.firstChild);
+    }
+  }
+
+  function escapeHTML(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
   // --- Initialize ---
   document.addEventListener('DOMContentLoaded', function () {
     initGeometricCanvas();
@@ -449,5 +574,6 @@
     initScrollAnimations();
     initDonationForm();
     initModal();
+    initCommentSection();
   });
 })();
