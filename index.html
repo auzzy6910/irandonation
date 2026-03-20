@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Support the people of Iran affected by conflict. Your donation provides food, shelter, medical care, and hope to families in crisis." />
+  <meta name="theme-color" content="#1a3a5c" />
+  <title>Hope for Iran — Humanitarian Aid &amp; Donation</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕊️</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" width="40" height="40">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M20 6 Q26 14 20 22 Q14 14 20 6Z" fill="currentColor" opacity="0.8"/>
+          <path d="M12 18 Q18 22 20 30 Q22 22 28 18" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <span>Hope for Iran</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#crisis">The Crisis</a></li>
+        <li><a href="#impact">Our Impact</a></li>
+        <li><a href="#stories">Stories</a></li>
+        <li><a href="#transparency">Transparency</a></li>
+        <li><a href="#donate" class="nav-cta">Donate Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" id="hero">
+    <canvas id="geometricCanvas" class="hero-canvas"></canvas>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge animate-in">Humanitarian Crisis</div>
+      <h1 class="hero-title animate-in">
+        <span class="title-line">Bring Hope to</span>
+        <span class="title-line title-accent">Iran</span>
+      </h1>
+      <p class="hero-subtitle animate-in">
+        Millions of families need urgent aid. Your generosity can provide food, shelter,
+        and medical care to those caught in the crossfire.
+      </p>
+      <div class="hero-actions animate-in">
+        <a href="#donate" class="btn btn-primary btn-lg">
+          <span>Donate Now</span>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </a>
+        <a href="#crisis" class="btn btn-outline btn-lg">Learn More</a>
+      </div>
+      <div class="hero-stats animate-in">
+        <div class="stat">
+          <span class="stat-number" data-target="4200000">0</span>
+          <span class="stat-label">People Displaced</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number" data-target="890000">0</span>
+          <span class="stat-label">Children in Need</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number" data-target="12500">0</span>
+          <span class="stat-label">Families Helped</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll to learn more</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </header>
+
+  <!-- Crisis Section -->
+  <section class="section crisis-section" id="crisis">
+    <div class="geometric-border top"></div>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Understanding the Crisis</span>
+        <h2 class="section-title">A Nation in Need</h2>
+        <p class="section-desc">
+          The ongoing conflict has devastated communities across Iran, displacing millions
+          and leaving families without access to basic necessities.
+        </p>
+      </div>
+      <div class="crisis-grid">
+        <div class="crisis-card animate-on-scroll">
+          <div class="crisis-icon">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M24 4v8M4 24h8M36 24h8M24 36v8M10.3 10.3l5.7 5.7M32 16l5.7-5.7M16 32l-5.7 5.7M32 32l5.7 5.7"/>
+              <circle cx="24" cy="24" r="8"/>
+            </svg>
+          </div>
+          <h3>Infrastructure Destroyed</h3>
+          <p>Over 60% of critical infrastructure including hospitals, schools, and water systems have been damaged or destroyed.</p>
+        </div>
+        <div class="crisis-card animate-on-scroll">
+          <div class="crisis-icon">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M24 4C13 4 4 13 4 24s9 20 20 20 20-9 20-20S35 4 24 4z"/>
+              <path d="M16 20c0-2 2-4 4-4s4 2 4 4M24 20c0-2 2-4 4-4s4 2 4 4"/>
+              <path d="M16 30s2 4 8 4 8-4 8-4"/>
+            </svg>
+          </div>
+          <h3>Food Insecurity</h3>
+          <p>3.8 million people face severe food insecurity. Children are the most vulnerable, with malnutrition rates climbing rapidly.</p>
+        </div>
+        <div class="crisis-card animate-on-scroll">
+          <div class="crisis-icon">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M24 44s-16-9-16-22C8 12 14 6 24 6s16 6 16 16c0 13-16 22-16 22z"/>
+              <circle cx="24" cy="22" r="6"/>
+            </svg>
+          </div>
+          <h3>Mass Displacement</h3>
+          <p>4.2 million people have been forced from their homes. Many live in makeshift camps with inadequate sanitation and shelter.</p>
+        </div>
+        <div class="crisis-card animate-on-scroll">
+          <div class="crisis-icon">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M24 4v4M24 40v4M4 24h4M40 24h4"/>
+              <rect x="12" y="12" width="24" height="24" rx="4"/>
+              <path d="M18 24h12M24 18v12"/>
+            </svg>
+          </div>
+          <h3>Medical Emergency</h3>
+          <p>Hospitals overwhelmed and undersupplied. Thousands lack access to essential medicines and surgical care.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section class="section impact-section" id="impact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Your Donation at Work</span>
+        <h2 class="section-title">How You Make a Difference</h2>
+        <p class="section-desc">
+          Every dollar goes directly to life-saving programs. Here's how your generosity
+          transforms lives on the ground.
+        </p>
+      </div>
+      <div class="impact-grid">
+        <div class="impact-card animate-on-scroll">
+          <div class="impact-amount">$25</div>
+          <div class="impact-visual">
+            <div class="impact-ring" style="--progress: 25"></div>
+          </div>
+          <h3>Emergency Food Pack</h3>
+          <p>Provides a family of four with nutritious meals for one week, including rice, oil, lentils, and fortified flour.</p>
+        </div>
+        <div class="impact-card featured animate-on-scroll">
+          <div class="impact-badge">Most Popular</div>
+          <div class="impact-amount">$75</div>
+          <div class="impact-visual">
+            <div class="impact-ring" style="--progress: 50"></div>
+          </div>
+          <h3>Medical Supply Kit</h3>
+          <p>Equips a field clinic with essential medicines, bandages, and surgical supplies to treat 50 patients.</p>
+        </div>
+        <div class="impact-card animate-on-scroll">
+          <div class="impact-amount">$150</div>
+          <div class="impact-visual">
+            <div class="impact-ring" style="--progress: 75"></div>
+          </div>
+          <h3>Emergency Shelter</h3>
+          <p>Provides a weatherproof tent, blankets, and sleeping mats for a displaced family through harsh winter months.</p>
+        </div>
+        <div class="impact-card animate-on-scroll">
+          <div class="impact-amount">$500</div>
+          <div class="impact-visual">
+            <div class="impact-ring" style="--progress: 100"></div>
+          </div>
+          <h3>Clean Water System</h3>
+          <p>Installs a water purification unit serving 200 people daily with safe drinking water for an entire year.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donation Section -->
+  <section class="section donate-section" id="donate">
+    <div class="geometric-border top"></div>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Take Action</span>
+        <h2 class="section-title">Make Your Donation</h2>
+        <p class="section-desc">
+          Choose an amount that feels right for you. Every contribution, no matter the size,
+          creates a ripple of hope.
+        </p>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="fundraising-progress animate-on-scroll">
+        <div class="progress-header">
+          <span class="progress-label">Fundraising Goal</span>
+          <span class="progress-amount">$1,847,320 <span class="progress-goal">of $2,500,000</span></span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="73.9"></div>
+        </div>
+        <div class="progress-footer">
+          <span>18,473 donors</span>
+          <span>73.9% funded</span>
+        </div>
+      </div>
+
+      <!-- Donation Form -->
+      <div class="donate-form-wrapper animate-on-scroll">
+        <form class="donate-form" id="donateForm" action="#" method="POST">
+          <div class="frequency-toggle">
+            <button type="button" class="freq-btn active" data-freq="once">One-time</button>
+            <button type="button" class="freq-btn" data-freq="monthly">Monthly</button>
+          </div>
+
+          <div class="amount-grid">
+            <button type="button" class="amount-btn" data-amount="25">$25</button>
+            <button type="button" class="amount-btn" data-amount="50">$50</button>
+            <button type="button" class="amount-btn active" data-amount="75">$75</button>
+            <button type="button" class="amount-btn" data-amount="100">$100</button>
+            <button type="button" class="amount-btn" data-amount="250">$250</button>
+            <button type="button" class="amount-btn" data-amount="500">$500</button>
+          </div>
+
+          <div class="custom-amount">
+            <label for="customAmount">Or enter a custom amount</label>
+            <div class="custom-input-wrapper">
+              <span class="currency-symbol">$</span>
+              <input type="number" id="customAmount" name="amount" min="1" placeholder="Other amount" />
+            </div>
+          </div>
+
+          <div class="donor-info">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+          </div>
+
+          <div class="dedication-toggle">
+            <label class="checkbox-label">
+              <input type="checkbox" id="dedicateGift" />
+              <span class="checkmark"></span>
+              Dedicate this gift to someone special
+            </label>
+          </div>
+
+          <div class="dedication-fields" id="dedicationFields" hidden>
+            <div class="form-group">
+              <label for="dedicateName">Honoree's Name</label>
+              <input type="text" id="dedicateName" name="dedicateName" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
+            <span>Donate $75 Now</span>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </button>
+
+          <p class="form-note">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            Secure, encrypted donation. Tax-deductible receipt sent instantly.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stories Section -->
+  <section class="section stories-section" id="stories">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Real Stories</span>
+        <h2 class="section-title">Voices from Iran</h2>
+        <p class="section-desc">
+          Behind every statistic is a human story. These are the people your donations help.
+        </p>
+      </div>
+      <div class="stories-carousel" id="storiesCarousel">
+        <div class="story-card animate-on-scroll">
+          <div class="story-image" style="background: linear-gradient(135deg, #c9956b 0%, #8b5e3c 100%);">
+            <div class="story-initial">M</div>
+          </div>
+          <div class="story-content">
+            <blockquote>
+              "When the bombing started, we had minutes to flee. We left everything — our home, our memories.
+              The aid workers gave us shelter and food. My children can smile again because someone far away chose to care."
+            </blockquote>
+            <div class="story-author">
+              <strong>Maryam S.</strong>
+              <span>Mother of three, displaced from Isfahan</span>
+            </div>
+          </div>
+        </div>
+        <div class="story-card animate-on-scroll">
+          <div class="story-image" style="background: linear-gradient(135deg, #5b7fa5 0%, #2c4a6e 100%);">
+            <div class="story-initial">R</div>
+          </div>
+          <div class="story-content">
+            <blockquote>
+              "I am a doctor. Our hospital was destroyed but we set up a field clinic with donated supplies.
+              Yesterday, we delivered a healthy baby. Life continues because of your support."
+            </blockquote>
+            <div class="story-author">
+              <strong>Dr. Reza K.</strong>
+              <span>Physician, volunteer medical team</span>
+            </div>
+          </div>
+        </div>
+        <div class="story-card animate-on-scroll">
+          <div class="story-image" style="background: linear-gradient(135deg, #8fa587 0%, #4a6741 100%);">
+            <div class="story-initial">A</div>
+          </div>
+          <div class="story-content">
+            <blockquote>
+              "I'm 14. I want to be an engineer. The education tent they built means I haven't missed school
+              even though my city is gone. Books and teachers give me something bombs can't take away — hope."
+            </blockquote>
+            <div class="story-author">
+              <strong>Amir H.</strong>
+              <span>Student, age 14, from Shiraz</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transparency Section -->
+  <section class="section transparency-section" id="transparency">
+    <div class="geometric-border top"></div>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Full Accountability</span>
+        <h2 class="section-title">Where Your Money Goes</h2>
+        <p class="section-desc">
+          We believe in radical transparency. Every dollar is tracked and reported.
+        </p>
+      </div>
+      <div class="transparency-grid">
+        <div class="allocation-chart animate-on-scroll">
+          <div class="donut-chart">
+            <svg viewBox="0 0 200 200" class="donut-svg">
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#e8ddd3" stroke-width="30"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#c9956b" stroke-width="30"
+                stroke-dasharray="180 502" stroke-dashoffset="0" class="donut-segment seg-1"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#1a3a5c" stroke-width="30"
+                stroke-dasharray="120 502" stroke-dashoffset="-180" class="donut-segment seg-2"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#d4a574" stroke-width="30"
+                stroke-dasharray="80 502" stroke-dashoffset="-300" class="donut-segment seg-3"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#2c6e8a" stroke-width="30"
+                stroke-dasharray="60 502" stroke-dashoffset="-380" class="donut-segment seg-4"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#8b5e3c" stroke-width="30"
+                stroke-dasharray="42 502" stroke-dashoffset="-440" class="donut-segment seg-5"/>
+            </svg>
+            <div class="donut-center">
+              <span class="donut-percent">92%</span>
+              <span class="donut-label">to programs</span>
+            </div>
+          </div>
+          <div class="allocation-legend">
+            <div class="legend-item"><span class="legend-color" style="background:#c9956b"></span>Food & Nutrition — 36%</div>
+            <div class="legend-item"><span class="legend-color" style="background:#1a3a5c"></span>Medical Aid — 24%</div>
+            <div class="legend-item"><span class="legend-color" style="background:#d4a574"></span>Shelter & Housing — 16%</div>
+            <div class="legend-item"><span class="legend-color" style="background:#2c6e8a"></span>Education — 12%</div>
+            <div class="legend-item"><span class="legend-color" style="background:#8b5e3c"></span>Clean Water — 8%</div>
+            <div class="legend-item"><span class="legend-color" style="background:#999"></span>Operations — 4%</div>
+          </div>
+        </div>
+        <div class="trust-badges animate-on-scroll">
+          <div class="trust-item">
+            <div class="trust-icon">
+              <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M24 4L6 12v12c0 11 8 18 18 22 10-4 18-11 18-22V12L24 4z"/>
+                <path d="M16 24l6 6 10-12"/>
+              </svg>
+            </div>
+            <h4>Verified Nonprofit</h4>
+            <p>Registered 501(c)(3) with full IRS compliance and annual audited financials.</p>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">
+              <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="24" cy="24" r="20"/>
+                <path d="M24 14v10l8 4"/>
+              </svg>
+            </div>
+            <h4>Real-Time Tracking</h4>
+            <p>Track your donation's journey from receipt to impact with our donor dashboard.</p>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">
+              <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 6h20v36H14z"/>
+                <path d="M6 18h8M34 18h8M6 30h8M34 30h8"/>
+                <circle cx="24" cy="18" r="4"/>
+                <path d="M18 30h12"/>
+              </svg>
+            </div>
+            <h4>Quarterly Reports</h4>
+            <p>Detailed financial and impact reports published every quarter for complete transparency.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-content animate-on-scroll">
+        <h2>Every Act of Kindness<br/>Echoes Through Generations</h2>
+        <p>Join thousands of compassionate people around the world who are making a real difference in the lives of Iranian families.</p>
+        <a href="#donate" class="btn btn-primary btn-lg">
+          <span>Give Hope Today</span>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="#" class="footer-logo">
+            <svg class="logo-icon" viewBox="0 0 40 40" width="36" height="36">
+              <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M20 6 Q26 14 20 22 Q14 14 20 6Z" fill="currentColor" opacity="0.8"/>
+              <path d="M12 18 Q18 22 20 30 Q22 22 28 18" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <span>Hope for Iran</span>
+          </a>
+          <p>A nonprofit humanitarian organization dedicated to providing emergency relief and long-term support to communities affected by conflict in Iran.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#crisis">The Crisis</a></li>
+            <li><a href="#impact">Our Impact</a></li>
+            <li><a href="#donate">Donate</a></li>
+            <li><a href="#transparency">Transparency</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Annual Report</a></li>
+            <li><a href="#">Financial Statements</a></li>
+            <li><a href="#">Press Kit</a></li>
+            <li><a href="#">Partner With Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Get in Touch</h4>
+          <p>info@hopeforiran.org</p>
+          <p>+1 (555) 123-4567</p>
+          <div class="social-links">
+            <a href="#" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Hope for Iran. All rights reserved. EIN: 84-1234567</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Thank You Modal -->
+  <div class="modal-overlay" id="thankYouModal">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <div class="modal-icon">
+        <svg viewBox="0 0 80 80" width="80" height="80" fill="none" stroke="#c9956b" stroke-width="3">
+          <circle cx="40" cy="40" r="36"/>
+          <path d="M24 40l10 10 22-22"/>
+        </svg>
+      </div>
+      <h2>Thank You for Your Generosity</h2>
+      <p>Your donation of <strong id="modalAmount">$75</strong> will make a real difference in the lives of families in Iran.</p>
+      <p class="modal-sub">A confirmation receipt has been sent to your email.</p>
+      <div class="modal-share">
+        <p>Spread the word:</p>
+        <div class="share-buttons">
+          <button class="share-btn" data-platform="twitter">Share on Twitter</button>
+          <button class="share-btn" data-platform="facebook">Share on Facebook</button>
+          <button class="share-btn" data-platform="copy">Copy Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
