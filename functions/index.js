@@ -74,8 +74,8 @@ exports.createDonation = functions.https.onRequest((req, res) => {
         order_amount: Number(amount),
         payer_id: donorEmail || "anonymous@donor.com",
         order_id: `donation-${Date.now()}`,
-        notify_url: "", // will be set after deploy
-        notify_secret: process.env.TRIPLE_A_CLIENT_SECRET || "",
+        notify_url: process.env.WEBHOOK_URL || "",
+        notify_secret: process.env.TRIPLE_A_NOTIFY_SECRET || process.env.TRIPLE_A_CLIENT_SECRET || "",
         success_url: req.headers.origin || req.headers.referer || "",
         cancel_url: req.headers.origin || req.headers.referer || "",
       };
@@ -115,21 +115,39 @@ exports.tripleaWebhook = functions.https.onRequest(async (req, res) => {
 
   try {
     // 1. Verify webhook signature
-    const signature = req.headers["triplea-signature"];
-    const notifySecret = process.env.TRIPLE_A_CLIENT_SECRET || "";
+    const notifySecret =
+      process.env.TRIPLE_A_NOTIFY_SECRET || process.env.TRIPLE_A_CLIENT_SECRET || "";
 
-    if (signature && notifySecret) {
+    if (notifySecret) {
+      // Use rawBody (provided by Firebase) so the hash matches the
+      // exact bytes Triple-A signed, avoiding JSON re-serialisation drift.
+      const rawBody = req.rawBody
+        ? req.rawBody.toString("utf8")
+        : JSON.stringify(req.body);
+
       const expectedSig = crypto
         .createHmac("sha256", notifySecret)
-        .update(JSON.stringify(req.body))
+        .update(rawBody)
         .digest("hex");
 
-      if (signature !== expectedSig) {
-        functions.logger.warn("Webhook signature mismatch", {
-          received: signature,
-        });
-        res.status(401).send("Invalid signature");
-        return;
+      // Check common webhook signature headers
+      const signature =
+        req.headers["triplea-signature"] ||
+        req.headers["x-triplea-signature"] ||
+        req.headers["x-signature"] || "";
+
+      if (signature) {
+        const sigBuf = Buffer.from(signature, "hex");
+        const expBuf = Buffer.from(expectedSig, "hex");
+
+        if (
+          sigBuf.length !== expBuf.length ||
+          !crypto.timingSafeEqual(sigBuf, expBuf)
+        ) {
+          functions.logger.warn("Webhook signature mismatch");
+          res.status(401).send("Invalid signature");
+          return;
+        }
       }
     }
 
