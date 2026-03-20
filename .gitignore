@@ -1,0 +1,11 @@
+# Dependencies
+functions/node_modules/
+
+# Environment secrets
+functions/.env
+
+# Firebase local emulator data
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
