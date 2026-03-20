@@ -1,0 +1,23 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // donations/stats — publicly readable, only writable by Admin SDK (Cloud Functions)
+    match /donations/stats {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // contributions — not publicly accessible; only writable by Admin SDK (Cloud Functions)
+    match /contributions/{docId} {
+      allow read: if false;
+      allow write: if false;
+    }
+
+    // Default deny for all other paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
