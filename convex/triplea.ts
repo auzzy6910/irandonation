@@ -42,7 +42,7 @@ export const createPayment = action({
   args: {
     amount: v.number(),
     currency: v.string(),
-    userId: v.id("users"),
+    userId: v.string(),
   },
   handler: async (ctx, args) => {
     const accessToken = await getAccessToken();

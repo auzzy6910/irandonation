@@ -7,7 +7,7 @@ export const insertPayment = internalMutation({
     amount: v.number(),
     currency: v.string(),
     tripleAOrderId: v.string(),
-    userId: v.id("users"),
+    userId: v.string(),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("payments", {
