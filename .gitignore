@@ -1,11 +1,8 @@
 # Dependencies
-functions/node_modules/
+node_modules/
 
 # Environment secrets
-functions/.env
+.env.local
 
-# Firebase local emulator data
-.firebase/
-firebase-debug.log
-firestore-debug.log
-ui-debug.log
+# Convex generated files
+convex/_generated/
