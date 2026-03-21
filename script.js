@@ -2,8 +2,21 @@
    HOPE FOR IRAN — Interactive Scripts
    =================================== */
 
+/* global convex */
+
 (function () {
   'use strict';
+
+  // --- Convex Client Setup ---
+  var CONVEX_URL = window.__CONVEX_URL || 'https://tame-poodle-465.convex.cloud';
+  var convexClient = null;
+
+  function getConvexClient() {
+    if (!convexClient && typeof convex !== 'undefined' && convex.ConvexHttpClient) {
+      convexClient = new convex.ConvexHttpClient(CONVEX_URL);
+    }
+    return convexClient;
+  }
 
   // --- Geometric Canvas Animation ---
   function initGeometricCanvas() {
@@ -349,7 +362,7 @@
       });
     }
 
-    // Form submit
+    // Form submit — create Coinremitter LTC invoice via Convex
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -358,22 +371,66 @@
         return;
       }
 
-      // Mark donation as complete and store amount
-      localStorage.setItem('hasDonated', 'true');
-      localStorage.setItem('donationAmount', selectedAmount);
-      localStorage.setItem('donorName', (document.getElementById('firstName').value || 'Anonymous'));
+      var firstName = document.getElementById('firstName').value || '';
+      var lastName = document.getElementById('lastName').value || '';
+      var email = document.getElementById('email').value || '';
+      var frequency = form.querySelector('.freq-btn.active').getAttribute('data-freq') || 'once';
+      var dedicateNameInput = document.getElementById('dedicateName');
+      var dedicateName = (dedicateNameInput && dedicateNameInput.value) ? dedicateNameInput.value : undefined;
 
-      // Unlock the comment section
-      initCommentSection();
-
-      // Show thank you modal
-      var modal = document.getElementById('thankYouModal');
-      var modalAmount = document.getElementById('modalAmount');
-      if (modal && modalAmount) {
-        modalAmount.textContent = '$' + selectedAmount;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+      var client = getConvexClient();
+      if (!client) {
+        alert('Payment service is not available. Please try again later.');
+        return;
       }
+
+      // Disable submit button while processing
+      submitBtn.disabled = true;
+      submitBtn.querySelector('span').textContent = 'Processing…';
+
+      var actionArgs = {
+        amount: selectedAmount,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        frequency: frequency,
+      };
+      if (dedicateName) {
+        actionArgs.dedicateName = dedicateName;
+      }
+
+      client.action('payments:createCoinremitterInvoice', actionArgs)
+        .then(function (result) {
+          // Store donation info locally
+          localStorage.setItem('hasDonated', 'true');
+          localStorage.setItem('donationAmount', selectedAmount);
+          localStorage.setItem('donorName', firstName || 'Anonymous');
+
+          // Unlock the comment section
+          initCommentSection();
+
+          // Redirect to Coinremitter invoice page for LTC payment
+          if (result && result.invoiceUrl) {
+            window.open(result.invoiceUrl, '_blank');
+          }
+
+          // Show thank you modal
+          var modal = document.getElementById('thankYouModal');
+          var modalAmount = document.getElementById('modalAmount');
+          if (modal && modalAmount) {
+            modalAmount.textContent = '$' + selectedAmount;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          }
+        })
+        .catch(function (err) {
+          console.error('Payment error:', err);
+          alert('There was an error creating your payment. Please try again.');
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+          updateSubmitButton();
+        });
     });
   }
 
