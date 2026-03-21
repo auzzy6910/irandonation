@@ -8,7 +8,7 @@
   'use strict';
 
   // --- Convex Client Setup ---
-  var CONVEX_URL = window.__CONVEX_URL || 'http://127.0.0.1:3210';
+  var CONVEX_URL = window.__CONVEX_URL || 'https://tame-poodle-465.convex.cloud';
   var convexClient = null;
 
   function getConvexClient() {
