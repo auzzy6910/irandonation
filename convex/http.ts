@@ -39,9 +39,11 @@ http.route({
     console.log("[Webhook] Received payload:", JSON.stringify(rawData));
 
     if (!invoiceId) {
-      console.error("[Webhook] Missing invoice_id");
-      return new Response(JSON.stringify({ error: "Missing invoice_id" }), {
-        status: 400,
+      // Coinremitter validates the notify_url at invoice creation time by
+      // sending a POST request.  Return 200 so the URL passes validation.
+      console.log("[Webhook] No invoice_id — likely a URL validation ping");
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
         headers: { "Content-Type": "application/json" },
       });
     }

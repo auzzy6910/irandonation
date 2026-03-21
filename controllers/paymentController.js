@@ -42,8 +42,10 @@ router.post(
       const address = body.address || body.deposit_address || '';
 
       if (!invoiceId) {
-        console.error('[Webhook] Missing invoice_id in webhook payload');
-        return res.status(400).json({ error: 'Missing invoice_id' });
+        // Coinremitter validates the notify_url at invoice creation time by
+        // sending a POST request. Return 200 so the URL passes validation.
+        console.log('[Webhook] No invoice_id — likely a URL validation ping');
+        return res.status(200).json({ ok: true });
       }
 
       console.log(`[Webhook] Processing invoice_id=${invoiceId}, status=${status}, address=${address}`);
