@@ -5,17 +5,16 @@ import { action } from "./_generated/server";
 import { internal } from "./_generated/api";
 
 async function getAccessToken(): Promise<string> {
-  const apiUrl = process.env.TRIPLEA_API_URL;
-  const clientId = process.env.TRIPLEA_CLIENT_ID;
-  const clientSecret = process.env.TRIPLEA_CLIENT_SECRET;
+  const clientId = process.env.TRIPLE_A_CLIENT_ID;
+  const clientSecret = process.env.TRIPLE_A_CLIENT_SECRET;
 
-  if (!apiUrl || !clientId || !clientSecret) {
+  if (!clientId || !clientSecret) {
     throw new Error(
-      "Missing TRIPLEA_API_URL, TRIPLEA_CLIENT_ID, or TRIPLEA_CLIENT_SECRET environment variables"
+      "Missing TRIPLE_A_CLIENT_ID or TRIPLE_A_CLIENT_SECRET environment variables"
     );
   }
 
-  const response = await fetch(`${apiUrl}/oauth/token`, {
+  const response = await fetch("https://api.triple-a.io/api/v2/oauth/token", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -47,12 +46,7 @@ export const createPayment = action({
   handler: async (ctx, args) => {
     const accessToken = await getAccessToken();
 
-    const apiUrl = process.env.TRIPLEA_API_URL;
-    if (!apiUrl) {
-      throw new Error("Missing TRIPLEA_API_URL environment variable");
-    }
-
-    const paymentResponse = await fetch(`${apiUrl}/payment`, {
+    const paymentResponse = await fetch("https://api.triple-a.io/api/v2/payment", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -60,7 +54,7 @@ export const createPayment = action({
       },
       body: JSON.stringify({
         type: "widget",
-        merchant_key: process.env.TRIPLEA_MERCHANT_KEY,
+        merchant_key: process.env.TRIPLE_A_MERCHANT_KEY,
         order_currency: args.currency,
         order_amount: args.amount,
         notify_url: "https://combative-chicken-671.convex.site/triplea-webhook",

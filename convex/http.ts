@@ -44,9 +44,9 @@ async function verifySignature(
 }
 
 const tripleAWebhook = httpAction(async (ctx, request) => {
-  const merchantKey = process.env.TRIPLEA_MERCHANT_KEY;
+  const merchantKey = process.env.TRIPLE_A_MERCHANT_KEY;
   if (!merchantKey) {
-    console.error("Missing TRIPLEA_MERCHANT_KEY environment variable");
+    console.error("Missing TRIPLE_A_MERCHANT_KEY environment variable");
     return new Response("Server configuration error", { status: 500 });
   }
 
