@@ -42,8 +42,8 @@ export const createCoinremitterInvoice = action({
       success_url: `${siteUrl}/payment-success`,
       fail_url: `${siteUrl}/payment-fail`,
       description: `Donation of $${args.amount} from ${args.firstName} ${args.lastName}`,
-      custom_data1: args.email,
-      custom_data2: args.frequency,
+      custom_data1: args.email.replace(/[^a-zA-Z0-9 -]/g, ""),
+      custom_data2: args.frequency.replace(/[^a-zA-Z0-9 -]/g, ""),
     };
 
     console.log("[Coinremitter] Creating invoice with params:", JSON.stringify(invoiceParams));
