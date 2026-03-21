@@ -1,0 +1,8 @@
+# Dependencies
+node_modules/
+
+# Environment secrets
+.env.local
+
+# Convex generated files
+convex/_generated/
