@@ -44,29 +44,37 @@ async function verifySignature(
 }
 
 const tripleAWebhook = httpAction(async (ctx, request) => {
-  const merchantKey = process.env.TRIPLE_A_MERCHANT_KEY;
-  if (!merchantKey) {
-    console.error("Missing TRIPLE_A_MERCHANT_KEY environment variable");
+  const notifySecret = process.env.TRIPLE_A_NOTIFY_SECRET;
+  if (!notifySecret) {
+    console.error("Missing TRIPLE_A_NOTIFY_SECRET environment variable");
     return new Response("Server configuration error", { status: 500 });
   }
 
   const payload = await request.text();
   const signature = request.headers.get("triplea-signature") ?? "";
 
-  const isValid = await verifySignature(payload, signature, merchantKey);
+  const isValid = await verifySignature(payload, signature, notifySecret);
   if (!isValid) {
     console.error("Invalid Triple-A webhook signature");
     return new Response("Invalid signature", { status: 401 });
   }
 
-  const event = JSON.parse(payload);
+  let event;
+  try {
+    event = JSON.parse(payload);
+  } catch {
+    console.error("Failed to parse webhook payload");
+    return new Response("Invalid payload", { status: 400 });
+  }
 
-  if (event.event_type === "payment.success") {
-    const orderId = event.order_id;
+  if (event.payment_status === "done" || event.status === "done") {
+    const paymentReference = event.payment_reference;
 
-    await ctx.runMutation(internal.payments.markPaymentCompleted, {
-      tripleAOrderId: orderId,
-    });
+    if (paymentReference) {
+      await ctx.runMutation(internal.payments.markPaymentCompleted, {
+        tripleAOrderId: paymentReference,
+      });
+    }
   }
 
   return new Response("OK", { status: 200 });

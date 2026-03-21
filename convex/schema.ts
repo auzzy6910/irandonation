@@ -7,6 +7,8 @@ export default defineSchema({
     amount: v.number(),
     currency: v.string(),
     tripleAOrderId: v.string(),
+    paymentReference: v.optional(v.string()),
+    hostedUrl: v.optional(v.string()),
     userId: v.string(),
   }).index("by_tripleAOrderId", ["tripleAOrderId"]),
 });

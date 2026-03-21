@@ -4,6 +4,10 @@ import { v } from "convex/values";
 import { action } from "./_generated/server";
 import { internal } from "./_generated/api";
 
+function getApiBaseUrl(): string {
+  return process.env.TRIPLE_A_API_URL || "https://api.triple-a.io";
+}
+
 async function getAccessToken(): Promise<string> {
   const clientId = process.env.TRIPLE_A_CLIENT_ID;
   const clientSecret = process.env.TRIPLE_A_CLIENT_SECRET;
@@ -14,7 +18,8 @@ async function getAccessToken(): Promise<string> {
     );
   }
 
-  const response = await fetch("https://api.triple-a.io/api/v2/oauth/token", {
+  const baseUrl = getApiBaseUrl();
+  const response = await fetch(`${baseUrl}/api/v2/oauth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -44,21 +49,42 @@ export const createPayment = action({
     userId: v.string(),
   },
   handler: async (ctx, args) => {
-    const accessToken = await getAccessToken();
+    const merchantKey = process.env.TRIPLE_A_MERCHANT_KEY;
+    const notifySecret = process.env.TRIPLE_A_NOTIFY_SECRET;
+    const siteUrl = process.env.CONVEX_SITE_URL;
 
-    const paymentResponse = await fetch("https://api.triple-a.io/api/v2/payment", {
+    if (!merchantKey) {
+      throw new Error("Missing TRIPLE_A_MERCHANT_KEY environment variable");
+    }
+    if (!siteUrl) {
+      throw new Error("Missing CONVEX_SITE_URL environment variable");
+    }
+
+    const accessToken = await getAccessToken();
+    const baseUrl = getApiBaseUrl();
+    const notifyUrl = `${siteUrl}/triplea-webhook`;
+
+    const requestBody: Record<string, unknown> = {
+      type: "widget",
+      merchant_key: merchantKey,
+      order_currency: args.currency,
+      order_amount: args.amount,
+      notify_url: notifyUrl,
+      payer_id: args.userId,
+      payer_email: args.userId,
+    };
+
+    if (notifySecret) {
+      requestBody.notify_secret = notifySecret;
+    }
+
+    const paymentResponse = await fetch(`${baseUrl}/api/v2/payment`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        type: "widget",
-        merchant_key: process.env.TRIPLE_A_MERCHANT_KEY,
-        order_currency: args.currency,
-        order_amount: args.amount,
-        notify_url: "https://combative-chicken-671.convex.site/triplea-webhook",
-      }),
+      body: JSON.stringify(requestBody),
     });
 
     if (!paymentResponse.ok) {
@@ -74,13 +100,15 @@ export const createPayment = action({
       status: "pending",
       amount: args.amount,
       currency: args.currency,
-      tripleAOrderId: paymentData.order_id,
+      tripleAOrderId: paymentData.payment_reference,
+      paymentReference: paymentData.payment_reference,
+      hostedUrl: paymentData.hosted_url,
       userId: args.userId,
     });
 
     return {
       checkoutUrl: paymentData.hosted_url,
-      orderId: paymentData.order_id,
+      paymentReference: paymentData.payment_reference,
     };
   },
 });

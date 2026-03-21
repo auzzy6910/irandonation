@@ -7,6 +7,8 @@ export const insertPayment = internalMutation({
     amount: v.number(),
     currency: v.string(),
     tripleAOrderId: v.string(),
+    paymentReference: v.optional(v.string()),
+    hostedUrl: v.optional(v.string()),
     userId: v.string(),
   },
   handler: async (ctx, args) => {
@@ -15,6 +17,8 @@ export const insertPayment = internalMutation({
       amount: args.amount,
       currency: args.currency,
       tripleAOrderId: args.tripleAOrderId,
+      paymentReference: args.paymentReference,
+      hostedUrl: args.hostedUrl,
       userId: args.userId,
     });
   },

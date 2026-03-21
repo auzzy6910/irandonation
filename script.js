@@ -366,7 +366,9 @@
       submitBtn.querySelector('span').textContent = 'Processing...';
 
       // Call Convex createPayment action
-      fetch('https://combative-chicken-671.convex.cloud/api/action', {
+      // The CONVEX_URL is set at the top of this file or defaults to the deployment URL.
+      var convexUrl = window.CONVEX_URL || 'https://combative-chicken-671.convex.cloud';
+      fetch(convexUrl + '/api/action', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
